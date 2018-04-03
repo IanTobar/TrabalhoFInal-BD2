@@ -19,3 +19,16 @@ create view view_tRendaPercapita_estado as select tRendaPercapita_estado from es
 
 --IMPORTAR ARQUIVO CSV
 COPY estado(nome_estado, sigla) FROM 'C:/AtlasBrasil_Consulta Estado2.csv'  using delimiters ';'
+
+-- Gatilhos
+
+create or replace function classifica_IDHM() returns trigger as $$
+begin
+if(tg_op = 'insert') then
+  if(new.tIDHM =< 0.499) then
+    update indicativos_municipio set classificacao = 'Muito Baixo' where new.id_municipio = ;
+    elseif((new.tIDHM >= 0.500) and (new.tIDHM <= 0.599)) then
+    update indicativos_municipio ser classificacao = 'Baixo' where new.;
+elseif((new.tIDHM  ))
+end;
+$$  
