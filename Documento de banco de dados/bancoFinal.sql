@@ -129,11 +129,4 @@ execute procedure classifica_idh_municipio();
 
 
 --IMPORTAR ARQUIVO CSV
---arquivo dos estados
-COPY estado(nome_estado, sigla) FROM 'C:/estados.csv'  using delimiters ';'
---arquvi dos municipios
-COPY municipio(nome_estado, sigla) FROM 'C:/municipios.csv'  using delimiters ';'
---indicadores estaduais
-COPY indicativos_estado(id_estado, tmortalidade_estado, tanalfabetismo_estado, tidh, trendapercapita_estado, ano) FROM 'C:/taxas_estados.csv'  using delimiters ';'
---indicadores municipais
-COPY indicativos_municipio(id_municipio, tMortalidade_municipio, tAnalfabetismo_municipio, tIDHM, tRendaPercapita_municipio, ano) FROM 'C:/taxas_municipios.csv'  using delimiters ';'
+COPY estado(nome_estado, sigla) FROM 'C:/AtlasBrasil_Consulta Estado2.csv'  using delimiters ';'
