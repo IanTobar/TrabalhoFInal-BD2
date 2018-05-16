@@ -3,7 +3,7 @@ create table estado (id_estado serial primary key, nome_estado varchar(25) not n
 create table municipio (id_municipio serial primary key, nome_municipio varchar(40) not null, id_estado smallint not null, foreign key(id_estado) references estado(id_estado));
 
 create table indicativos_estado(id_estado smallint, tMortalidade_estado decimal(4,2) CHECK(tMortalidade_estado >= 0), tAnalfabetismo_estado decimal(5,2) check(tAnalfabetismo_estado >= 0), tIDH decimal(4,3) CHECK(tIDH >=0 and tIDH <= 1), tRendaPercapita_estado decimal(10,3) check (tRendaPercapita_estado >= 0), ano smallint, primary key (id_estado,ano), foreign key (id_estado) references estado(id_estado), classificacao varchar(15));
-create table indicativos_municipio(id_municipio smallint, tMortalidade_municipio decimal(10,3) CHECK(tMortalidade_municipio >= 0), tAnalfabetismo_municipio decimal(5,2) check(tAnalfabetismo_municipio >= 0), tIDHM decimal(4,3) CHECK(tIDHM >=0 and tIDHM <= 1), tRendaPercapita_municipio decimal(10,3) check (tRendaPercapita_municipio >= 0), ano smallint , primary key (id_municipio,ano), foreign key (id_municipio) references municipio(id_municipio), classificacao varchar(15) not null);
+create table indicativos_municipio(id_municipio smallint, tMortalidade_municipio decimal(10,3) CHECK(tMortalidade_municipio >= 0), tAnalfabetismo_municipio decimal(5,2) check(tAnalfabetismo_municipio >= 0), tIDHM decimal(4,3) CHECK(tIDHM >=0 and tIDHM <= 1), tRendaPercapita_municipio decimal(10,3) check (tRendaPercapita_municipio >= 0), ano smallint , primary key (id_municipio,ano), foreign key (id_municipio) references municipio(id_municipio), classificacao varchar(15));
 
 
 --VIEWS MUNICIPIO
@@ -129,4 +129,11 @@ execute procedure classifica_idh_municipio();
 
 
 --IMPORTAR ARQUIVO CSV
-COPY estado(nome_estado, sigla) FROM 'C:/AtlasBrasil_Consulta Estado2.csv'  using delimiters ';'
+--arquivo dos estados
+COPY estado(nome_estado, sigla) FROM 'C:/estados.csv'  using delimiters ';'
+--arquvi dos municipios
+COPY municipio(nome_estado, sigla) FROM 'C:/municipios.csv'  using delimiters ';'
+--indicadores estaduais
+COPY indicativos_estado(id_estado, tmortalidade_estado, tanalfabetismo_estado, tidh, trendapercapita_estado, ano) FROM 'C:/taxas_estados.csv'  using delimiters ';'
+--indicadores municipais
+COPY indicativos_municipio(id_municipio, tMortalidade_municipio, tAnalfabetismo_municipio, tIDHM, tRendaPercapita_municipio, ano) FROM 'C:/taxas_municipios.csv'  using delimiters ';'
